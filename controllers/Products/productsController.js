@@ -91,6 +91,8 @@ const productsController={
                   res.status(201).json(document)
             })
       },
+
+      // delete project API ******************
      async destroy(req,res,next){
        const document=await products.findOneAndRemove({_id:req.params.id});
        if(!document){
@@ -106,7 +108,7 @@ const productsController={
       res.json(document)
       },
       
-      // get all products data
+      // get all products data API*********************
       async index(req,res,next){
       let data;
       // pagination mongoose-pagination
