@@ -112,15 +112,16 @@ const productsController={
       async index(req,res,next){
       let data;
       // pagination mongoose-pagination
+      const {page=1,limit=2}=req.query;
       try{
-            data=await products.find().select('-updatedAt -__v').sort({_id:-1});
+            data=await products.find().select('-updatedAt -__v').sort({_id:-1}).limit(limit*1).skip((page-1)*limit);
             if(!data){
                   return next(new Error('Data Not found'))
             }
       }catch(err){
          return next(CustomErrorHandler.serverError())
       }
-      return res.json(data)
+      return res.json({MinPrice:Math.min(...data.map(res=>res.price)),data}) //here spread operator convert array to list
 },
 async show(req,res,next){
       let document;

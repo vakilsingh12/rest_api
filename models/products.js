@@ -1,4 +1,5 @@
 const mongoose=require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 const {APP_URL}=require('../config')
 const Schema=mongoose.Schema;
 const productSchema=new Schema({
@@ -10,5 +11,5 @@ const productSchema=new Schema({
       }}
 },
 {timestamps:true,toJSON:{getters:true},id:false})  //id false bcz this one also give new id 
-
+productSchema.plugin(mongoosePaginate);
 module.exports=mongoose.model('Product',productSchema,'products')
